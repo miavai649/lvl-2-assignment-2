@@ -29,6 +29,24 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 });
+const getAllProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield product_service_1.ProductServices.getAllProductsFromDB();
+        res.status(200).json({
+            success: true,
+            message: "Products fetched successfully!",
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch products. Please try again later.",
+            error: error,
+        });
+    }
+});
 exports.ProductControllers = {
     createProduct,
+    getAllProduct,
 };
