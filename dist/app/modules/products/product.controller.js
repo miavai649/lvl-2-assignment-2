@@ -69,6 +69,12 @@ const updateProductInfo = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const { productId } = req.params;
         const productData = req.body;
         const result = yield product_service_1.ProductServices.updateProductInfoIntoDB(productId, productData);
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found. Please check the product ID and try again.",
+            });
+        }
         res.status(200).json({
             success: true,
             message: "Product updated successfully!",
@@ -78,7 +84,7 @@ const updateProductInfo = (req, res) => __awaiter(void 0, void 0, void 0, functi
     catch (error) {
         res.status(500).json({
             success: false,
-            message: "Product not found. Please try again later.",
+            message: "An error occurred while updating the product. Please try again later.",
             error: error,
         });
     }

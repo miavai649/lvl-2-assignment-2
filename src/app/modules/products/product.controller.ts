@@ -69,6 +69,14 @@ const updateProductInfo = async (req: Request, res: Response) => {
       productData,
     );
 
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message:
+          "Product not found. Please check the product ID and try again.",
+      });
+    }
+
     res.status(200).json({
       success: true,
       message: "Product updated successfully!",
@@ -77,7 +85,8 @@ const updateProductInfo = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Product not found. Please try again later.",
+      message:
+        "An error occurred while updating the product. Please try again later.",
       error: error,
     });
   }
