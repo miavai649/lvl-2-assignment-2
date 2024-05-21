@@ -11,15 +11,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductServices = void 0;
 const product_model_1 = require("./product.model");
+// creating a single product and save this to our mongodb database
 const createProductIntoDB = (product) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield product_model_1.Product.create(product);
     return result;
 });
+// getting all our created products
 const getAllProductsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield product_model_1.Product.find();
+    return result;
+});
+// getting a single specific product by product id
+const getSpecificProductFromDB = (productId) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_model_1.Product.findById(productId);
     return result;
 });
 exports.ProductServices = {
     createProductIntoDB,
     getAllProductsFromDB,
+    getSpecificProductFromDB,
 };
