@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ProductServices } from "./product.service";
 
+// for create a single product
 const createProduct = async (req: Request, res: Response) => {
   try {
     const productData = req.body;
@@ -21,6 +22,7 @@ const createProduct = async (req: Request, res: Response) => {
   }
 };
 
+// for get all product at once
 const getAllProduct = async (req: Request, res: Response) => {
   try {
     const result = await ProductServices.getAllProductsFromDB();
@@ -39,11 +41,20 @@ const getAllProduct = async (req: Request, res: Response) => {
   }
 };
 
+// for get a specific product
 const getSpecificProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
 
     const result = await ProductServices.getSpecificProductFromDB(productId);
+
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message:
+          "Product not found. Please check the product ID and try again.",
+      });
+    }
 
     res.status(200).json({
       success: true,
@@ -59,6 +70,7 @@ const getSpecificProduct = async (req: Request, res: Response) => {
   }
 };
 
+// for update product information
 const updateProductInfo = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
@@ -80,7 +92,7 @@ const updateProductInfo = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: "Product updated successfully!",
-      data: result,
+      data: null,
     });
   } catch (error) {
     res.status(500).json({
@@ -92,6 +104,7 @@ const updateProductInfo = async (req: Request, res: Response) => {
   }
 };
 
+// for delete a product
 const deleteProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;

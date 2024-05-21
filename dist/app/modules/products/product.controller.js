@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductControllers = void 0;
 const product_service_1 = require("./product.service");
+// for create a single product
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const productData = req.body;
@@ -29,6 +30,7 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 });
+// for get all product at once
 const getAllProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield product_service_1.ProductServices.getAllProductsFromDB();
@@ -46,10 +48,17 @@ const getAllProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 });
+// for get a specific product
 const getSpecificProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { productId } = req.params;
         const result = yield product_service_1.ProductServices.getSpecificProductFromDB(productId);
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found. Please check the product ID and try again.",
+            });
+        }
         res.status(200).json({
             success: true,
             message: "Product fetched successfully!",
@@ -64,6 +73,7 @@ const getSpecificProduct = (req, res) => __awaiter(void 0, void 0, void 0, funct
         });
     }
 });
+// for update product information
 const updateProductInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { productId } = req.params;
@@ -78,7 +88,7 @@ const updateProductInfo = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.status(200).json({
             success: true,
             message: "Product updated successfully!",
-            data: result,
+            data: null,
         });
     }
     catch (error) {
@@ -89,6 +99,7 @@ const updateProductInfo = (req, res) => __awaiter(void 0, void 0, void 0, functi
         });
     }
 });
+// for delete a product
 const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { productId } = req.params;
