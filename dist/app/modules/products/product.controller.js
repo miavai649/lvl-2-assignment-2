@@ -64,8 +64,28 @@ const getSpecificProduct = (req, res) => __awaiter(void 0, void 0, void 0, funct
         });
     }
 });
+const updateProductInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { productId } = req.params;
+        const productData = req.body;
+        const result = yield product_service_1.ProductServices.updateProductInfoIntoDB(productId, productData);
+        res.status(200).json({
+            success: true,
+            message: "Product updated successfully!",
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Product not found. Please try again later.",
+            error: error,
+        });
+    }
+});
 exports.ProductControllers = {
     createProduct,
     getAllProduct,
     getSpecificProduct,
+    updateProductInfo,
 };

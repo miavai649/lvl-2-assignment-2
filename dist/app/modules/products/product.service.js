@@ -26,8 +26,14 @@ const getSpecificProductFromDB = (productId) => __awaiter(void 0, void 0, void 0
     const result = yield product_model_1.Product.findById(productId);
     return result;
 });
+// update product information
+const updateProductInfoIntoDB = (productId, data) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_model_1.Product.findByIdAndUpdate(productId, { $set: data }, { new: true });
+    return result;
+});
 exports.ProductServices = {
     createProductIntoDB,
     getAllProductsFromDB,
     getSpecificProductFromDB,
+    updateProductInfoIntoDB,
 };
