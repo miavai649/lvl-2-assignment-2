@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { OrderServices } from "./order.service";
 
+// for create new order
 const createOrder = async (req: Request, res: Response) => {
   try {
     const orderData = req.body;
@@ -20,6 +21,26 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
+// for get all orders at once
+const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    const result = await OrderServices.getAllOrdersFromDB();
+
+    res.status(200).json({
+      success: true,
+      message: "Orders fetched successfully!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch products. Please try again later.",
+      error: error,
+    });
+  }
+};
+
 export const OrderControllers = {
   createOrder,
+  getAllOrders,
 };

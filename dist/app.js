@@ -14,6 +14,7 @@ app.use((0, cors_1.default)());
 // APPLICATION ROUTES
 // ---------- Product Routes -----------
 app.use("/api/products", product_route_1.ProductRouter);
+// ---------- Order Routes -------------
 app.use("/api/orders", order_route_1.OrderRouter);
 app.get("/", (req, res) => {
     const a = "hello world";

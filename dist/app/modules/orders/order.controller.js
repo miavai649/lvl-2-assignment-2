@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderControllers = void 0;
 const order_service_1 = require("./order.service");
+// for create new order
 const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const orderData = req.body;
@@ -29,6 +30,25 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
     }
 });
+// for get all orders at once
+const getAllOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield order_service_1.OrderServices.getAllOrdersFromDB();
+        res.status(200).json({
+            success: true,
+            message: "Orders fetched successfully!",
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch products. Please try again later.",
+            error: error,
+        });
+    }
+});
 exports.OrderControllers = {
     createOrder,
+    getAllOrders,
 };

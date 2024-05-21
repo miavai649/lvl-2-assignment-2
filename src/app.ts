@@ -13,6 +13,8 @@ app.use(cors());
 
 // ---------- Product Routes -----------
 app.use("/api/products", ProductRouter);
+
+// ---------- Order Routes -------------
 app.use("/api/orders", OrderRouter);
 
 app.get("/", (req: Request, res: Response) => {
