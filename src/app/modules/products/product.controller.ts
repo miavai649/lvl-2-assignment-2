@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ProductServices } from "./product.service";
 
 // for create a single product
@@ -92,7 +92,7 @@ const updateProductInfo = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: "Product updated successfully!",
-      data: null,
+      data: result,
     });
   } catch (error) {
     res.status(500).json({
@@ -122,7 +122,7 @@ const deleteProduct = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: "Product deleted successfully!",
-      data: result,
+      data: null,
     });
   } catch (error) {
     res.status(500).json({
@@ -134,10 +134,47 @@ const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
+// for search products
+const searchProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { searchTerm } = req.query;
+
+    const result = await ProductServices.searchProductsFromDB(
+      searchTerm as string,
+    );
+
+    if (result.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: `No products found matching the search term '${searchTerm}'.`,
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: `Products matching search term '${searchTerm}' fetched successfully!`,
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message:
+        "An error occurred while fetching products. Please try again later.",
+      error: error,
+    });
+  }
+  next();
+};
+
 export const ProductControllers = {
   createProduct,
   getAllProduct,
   getSpecificProduct,
   updateProductInfo,
   deleteProduct,
+  searchProducts,
 };

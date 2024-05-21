@@ -88,7 +88,7 @@ const updateProductInfo = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.status(200).json({
             success: true,
             message: "Product updated successfully!",
-            data: null,
+            data: result,
         });
     }
     catch (error) {
@@ -113,7 +113,7 @@ const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(200).json({
             success: true,
             message: "Product deleted successfully!",
-            data: result,
+            data: null,
         });
     }
     catch (error) {
@@ -124,10 +124,37 @@ const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 });
+// for search products
+const searchProducts = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { searchTerm } = req.query;
+        const result = yield product_service_1.ProductServices.searchProductsFromDB(searchTerm);
+        if (result.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: `No products found matching the search term '${searchTerm}'.`,
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: `Products matching search term '${searchTerm}' fetched successfully!`,
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "An error occurred while fetching products. Please try again later.",
+            error: error,
+        });
+    }
+    next();
+});
 exports.ProductControllers = {
     createProduct,
     getAllProduct,
     getSpecificProduct,
     updateProductInfo,
     deleteProduct,
+    searchProducts,
 };
