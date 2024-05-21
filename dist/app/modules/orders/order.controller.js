@@ -48,7 +48,33 @@ const getAllOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         });
     }
 });
+// for retrieve orders data by user email
+const getOrdersByUserEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { email } = req.query;
+        const result = yield order_service_1.OrderServices.getOrderByEmailFromDB(email);
+        if ((result === null || result === void 0 ? void 0 : result.length) === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Order not found. Please check the user email and try again.",
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: "Orders fetched successfully for user email!",
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "An error occurred while fetching orders. Please try again later.",
+            error: error,
+        });
+    }
+});
 exports.OrderControllers = {
     createOrder,
     getAllOrders,
+    getOrdersByUserEmail,
 };

@@ -125,7 +125,7 @@ const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 // for search products
-const searchProducts = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const searchProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { searchTerm } = req.query;
         const result = yield product_service_1.ProductServices.searchProductsFromDB(searchTerm);
@@ -148,7 +148,7 @@ const searchProducts = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
             error: error,
         });
     }
-    next();
+    // next();
 });
 exports.ProductControllers = {
     createProduct,

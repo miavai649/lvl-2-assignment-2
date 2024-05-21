@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { ProductServices } from "./product.service";
 
 // for create a single product
@@ -135,11 +135,7 @@ const deleteProduct = async (req: Request, res: Response) => {
 };
 
 // for search products
-const searchProducts = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const searchProducts = async (req: Request, res: Response) => {
   try {
     const { searchTerm } = req.query;
 
@@ -167,7 +163,7 @@ const searchProducts = async (
       error: error,
     });
   }
-  next();
+  // next();
 };
 
 export const ProductControllers = {

@@ -40,7 +40,37 @@ const getAllOrders = async (req: Request, res: Response) => {
   }
 };
 
+// for retrieve orders data by user email
+const getOrdersByUserEmail = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.query;
+
+    const result = await OrderServices.getOrderByEmailFromDB(email as string);
+
+    if (result?.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Order not found. Please check the user email and try again.",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Orders fetched successfully for user email!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message:
+        "An error occurred while fetching orders. Please try again later.",
+      error: error,
+    });
+  }
+};
+
 export const OrderControllers = {
   createOrder,
   getAllOrders,
+  getOrdersByUserEmail,
 };

@@ -1,12 +1,11 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const product_controller_1 = require("../modules/products/product.controller");
-const searchMiddleware = (req, res, next) => {
-    if (req.query.searchTerm) {
-        return product_controller_1.ProductControllers.searchProducts(req, res, next);
-    }
-    else {
-        return next();
-    }
-};
-exports.default = searchMiddleware;
+// import { Request, Response, NextFunction } from "express";
+// import { ProductControllers } from "../modules/products/product.controller";
+// const searchMiddleware = (req: Request, res: Response, next: NextFunction) => {
+//   if (req.query.searchTerm) {
+//     return ProductControllers.searchProducts(req, res, next);
+//   } else {
+//     return next();
+//   }
+// };
+// export default searchMiddleware;

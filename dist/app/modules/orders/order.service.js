@@ -21,7 +21,13 @@ const getAllOrdersFromDB = () => __awaiter(void 0, void 0, void 0, function* () 
     const result = yield order_model_1.Order.find();
     return result;
 });
+// retrieve orders data by user email from database
+const getOrderByEmailFromDB = (userEmail) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield order_model_1.Order.aggregate([{ $match: { email: userEmail } }]);
+    return result;
+});
 exports.OrderServices = {
     createOrderIntoDB,
     getAllOrdersFromDB,
+    getOrderByEmailFromDB,
 };
