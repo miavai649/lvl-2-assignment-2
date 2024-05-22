@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.productValidationSchema = void 0;
 const zod_1 = require("zod");
 // variant schema validation
 const variantValidationSchema = zod_1.z.object({
@@ -15,7 +14,7 @@ const inventoryValidationSchema = zod_1.z.object({
     inStock: zod_1.z.boolean(),
 });
 // product schema validation
-exports.productValidationSchema = zod_1.z.object({
+const productValidationSchema = zod_1.z.object({
     name: zod_1.z.string().min(1, { message: "Name is required" }),
     description: zod_1.z.string().min(1, { message: "Description is required" }),
     price: zod_1.z.number().min(0, { message: "Price must be a non-negative number" }),
@@ -28,3 +27,4 @@ exports.productValidationSchema = zod_1.z.object({
         .min(1, { message: "At least one variant is required" }),
     inventory: inventoryValidationSchema,
 });
+exports.default = productValidationSchema;

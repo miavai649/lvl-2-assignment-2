@@ -15,7 +15,7 @@ const inventoryValidationSchema = z.object({
 });
 
 // product schema validation
-export const productValidationSchema = z.object({
+const productValidationSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   description: z.string().min(1, { message: "Description is required" }),
   price: z.number().min(0, { message: "Price must be a non-negative number" }),
@@ -28,3 +28,5 @@ export const productValidationSchema = z.object({
     .min(1, { message: "At least one variant is required" }),
   inventory: inventoryValidationSchema,
 });
+
+export default productValidationSchema;

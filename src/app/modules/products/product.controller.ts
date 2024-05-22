@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import { ProductServices } from "./product.service";
-import { productValidationSchema } from "./product.validation";
+import productValidationSchema from "./product.validation";
 
 // for create a single product
 const createProduct = async (req: Request, res: Response) => {
   try {
     const productData = req.body;
 
+    // data validating by zod
     const zodParsedProductData = productValidationSchema.parse(productData);
 
     const result =
@@ -80,6 +81,7 @@ const updateProductInfo = async (req: Request, res: Response) => {
     const { productId } = req.params;
     const productData = req.body;
 
+    // data validating by zod
     const zodParsedProductData = productValidationSchema.parse(productData);
 
     const result = await ProductServices.updateProductInfoIntoDB(
