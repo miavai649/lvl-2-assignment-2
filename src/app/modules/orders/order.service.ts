@@ -12,7 +12,6 @@ const createOrderIntoDB = async (orderData: TOrder) => {
 
   // if valid then finding the product
   const product = await Product.findById(orderData.productId);
-  console.log("🚀 ~ createOrderIntoDB ~ product:", product);
 
   // if product not found that means then throwing a error message
   if (!product) {

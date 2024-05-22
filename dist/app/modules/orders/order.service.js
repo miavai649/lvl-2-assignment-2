@@ -24,7 +24,6 @@ const createOrderIntoDB = (orderData) => __awaiter(void 0, void 0, void 0, funct
     }
     // if valid then finding the product
     const product = yield product_model_1.Product.findById(orderData.productId);
-    console.log("🚀 ~ createOrderIntoDB ~ product:", product);
     // if product not found that means then throwing a error message
     if (!product) {
         throw new Error("Product not found or invalid product ID.");

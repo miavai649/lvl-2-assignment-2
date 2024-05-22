@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { TProduct } from "./product.interface";
 import { Product } from "./product.model";
 
@@ -15,12 +16,22 @@ const getAllProductsFromDB = async () => {
 
 // getting a single specific product by product id
 const getSpecificProductFromDB = async (productId: string) => {
+  // checking if the given product id is valid or not
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+    throw new Error("Id format is not valid.");
+  }
+
   const result = await Product.findById(productId);
   return result;
 };
 
 // update a product information
 const updateProductInfoIntoDB = async (productId: string, data: TProduct) => {
+  // checking if the given product id is valid or not
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+    throw new Error("Id format is not valid.");
+  }
+
   const result = await Product.findByIdAndUpdate(
     productId,
     { $set: data },
@@ -31,6 +42,11 @@ const updateProductInfoIntoDB = async (productId: string, data: TProduct) => {
 
 // delete a product from database
 const deleteProductFromDB = async (productId: string) => {
+  // checking if the given product id is valid or not
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+    throw new Error("Id format is not valid.");
+  }
+
   const result = await Product.findByIdAndDelete(productId);
   return result;
 };
