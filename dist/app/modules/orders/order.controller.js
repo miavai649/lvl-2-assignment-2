@@ -25,7 +25,7 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     catch (error) {
         res.status(500).json({
             success: false,
-            message: "Failed to create product. Please try again later.",
+            message: error.message || "Failed to create order. Please try again later.",
             error: error,
         });
     }

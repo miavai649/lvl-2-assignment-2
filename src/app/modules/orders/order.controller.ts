@@ -12,10 +12,11 @@ const createOrder = async (req: Request, res: Response) => {
       message: "Order created successfully!",
       data: result,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "Failed to create product. Please try again later.",
+      message:
+        error.message || "Failed to create order. Please try again later.",
       error: error,
     });
   }
